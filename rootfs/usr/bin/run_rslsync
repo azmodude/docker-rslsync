@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mkdir -p /sync/data
+mkdir -p /sync/config
+
+if ! [ -f /sync/config/sync.conf ]; then
+    cp /etc/sync.conf.default /sync/config/sync.conf;
+fi
+
+HOME=/sync/data exec /usr/bin/rslsync --nodaemon $*
