@@ -1,12 +1,11 @@
-FROM opensuse/leap
+FROM azmo/base:ubuntu-latest
 
 WORKDIR /tmp
 RUN set -x && \
-    zypper in -y curl tar gzip && \
     curl https://download-cdn.resilio.com/stable/linux-x64/resilio-sync_x64.tar.gz | tar xz && \
     mv rslsync /usr/bin && \
-    zypper rm -y --clean-deps curl tar gzip && \
-    zypper clean
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8888 55555
 ENTRYPOINT ["/usr/bin/run_rslsync"]
